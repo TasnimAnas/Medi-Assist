@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+# import openai
 import json
 
 class GeneratedDetails:
