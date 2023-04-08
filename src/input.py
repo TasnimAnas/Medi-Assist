@@ -25,7 +25,7 @@ class InputDetails:
         with col1:
             self.name = st.text_input('Name')
             if self.name: self.update_json('name', self.name)
-            self.gender = st.text_input('Gender')
+            self.gender = st.selectbox('Gender', ('Female', 'Male', 'Non-Binary', 'I do not wish to answer'))
             if self.gender: self.update_json('gender', self.gender)
         
         with col2:
