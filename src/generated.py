@@ -4,7 +4,7 @@ import os
 import openai
 import streamlit as st
 
-openai.api_key = "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"
+openai.api_key = "KEY"
 
 # print(req_lst)
 f = open(r"C:\Users\KIIT\Desktop\medi-assist\data\data.json")
