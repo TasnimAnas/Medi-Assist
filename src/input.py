@@ -1,9 +1,6 @@
 import json
 
-import openai
 import streamlit as st
-
-openai.api_key = "key"
 
 
 class InputDetails:
@@ -75,20 +72,3 @@ class InputDetails:
                     with open('data/data.json', 'w') as f:
                         json.dump({"symptoms": []}, f)
                     st.experimental_rerun()
-
-        if st.button('Generate Report'):
-            completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} is having {self.symptoms}. The patient has a medical history of {self.med_history}. What is the possible cause of these symptoms? Just list the possible causes"}
-                ]
-            )
-            self.update_json('causes', completion.choices[0].message.content)
-
-            completion = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} is having {self.symptoms}. The patient has a medical history of {self.med_history}. What medical diagnosis test should be suggested? Just list the possible tests"}
-                ]
-            )
-            self.update_json('tests', completion.choices[0].message.content)
