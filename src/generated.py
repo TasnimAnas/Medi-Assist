@@ -5,16 +5,18 @@ import os
 import streamlit as st
 
 # print(req_lst)
-f = open(r"C:\Users\KIIT\medi-assist\data\data.json")
-req_dict = json.load(f)
-req_lst = req_dict["symptoms"]
-causes = req_dict["causes"] if "causes" in req_dict else "No Data"
-tests = req_dict["tests"] if "tests" in req_dict else "No Data"
 
 
 class GeneratedDetails:
     def __init__(self) -> None:
+        f = open(r"C:\Users\KIIT\medi-assist\data\data.json")
+        req_dict = json.load(f)
+        req_lst = req_dict["symptoms"]
+        causes = req_dict["causes"] if "causes" in req_dict else "No Data"
+        tests = req_dict["tests"] if "tests" in req_dict else "No Data"
         self.symptoms = req_lst
+        self.causes = causes
+        self.tests = tests
 
     def gen(self):
         pass
@@ -54,12 +56,12 @@ class GeneratedDetails:
                     req_lst.remove(symptom)
 
         # st.write('required output')
-        json.dumps(req_lst)
+        # json.dumps(req_lst)
         # json.dumps(causes)
         # json.dumps(tests)
 
         st.subheader('Possible Causes')
-        st.write(causes)
+        st.write(self.causes)
 
         st.subheader('Tests')
-        st.write(tests)
+        st.write(self.tests)

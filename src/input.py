@@ -3,7 +3,7 @@ import json
 import openai
 import streamlit as st
 
-openai.api_key = "KEY"
+openai.api_key = "key"
 
 
 class InputDetails:
@@ -59,8 +59,9 @@ class InputDetails:
                     with open('data/data.json', 'r') as f:
                         self.symptoms = json.load(f)["symptoms"]
                     self.symptoms.append(input)
-                    with open('data/data.json', 'w') as f:
-                        json.dump({"symptoms": self.symptoms}, f)
+                    self.update_json("symptoms", self.symptoms)
+                    # with open('data/data.json', 'w') as f:
+                    #     json.dump({"symptoms": self.symptoms}, f)
 
         with col2:
             st.subheader("Symptoms List")
