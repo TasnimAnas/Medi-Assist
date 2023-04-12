@@ -11,12 +11,13 @@ openai.api_key = "key"
 
 class GeneratedDetails:
     def __init__(self) -> None:
-        f = open("D:\Prototypes\medi-assist\data\data.json")
+        f = open(r"C:\Users\KIIT\Desktop\medi-assist\data\data.json")
         req_dict = json.load(f)
         self.req_lst = req_dict["symptoms"]
         self.age = req_dict["age"]
         self.gender = req_dict["gender"]
         self.weight = req_dict["weight"]
+        self.height = req_dict["height"]
         self.med_history = req_dict["med_history"]
         causes = req_dict["causes"] if "causes" in req_dict else "No Data"
         tests = req_dict["tests"] if "tests" in req_dict else "No Data"
@@ -25,10 +26,10 @@ class GeneratedDetails:
         self.tests = tests
 
     def update_json(self, key, data):
-        with open('D:\Prototypes\medi-assist\data\data.json', 'r') as f:
+        with open(r'C:\Users\KIIT\Desktop\medi-assist\data\data.json', 'r') as f:
             self.inputJson = json.load(f)
         self.inputJson[key] = data
-        with open('D:\Prototypes\medi-assist\data\data.json', 'w') as f:
+        with open(r'C:\Users\KIIT\Desktop\medi-assist\data\data.json', 'w') as f:
             json.dump(self.inputJson, f)
 
     def gen(self):
@@ -64,10 +65,10 @@ class GeneratedDetails:
             for i in range(0, list_size):
                 # st.button("Delete Symptom", key=i)
                 if st.button("Delete Symptom", key=i):
-                    with open('D:\Prototypes\medi-assist\data\data.json', 'r') as f:
+                    with open(r'C:\Users\KIIT\Desktop\medi-assist\data\data.json', 'r') as f:
                         self.req_lst = json.load(f)["symptoms"]
                     st.success("Symptom Deleted")
-                    self.req_lst.remove(symptom)                    
+                    self.req_lst.remove(symptom)
                     self.update_json("symptoms", self.req_lst)
                     st.experimental_rerun()
                 i += 1
@@ -77,7 +78,7 @@ class GeneratedDetails:
             completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} is having {self.req_lst}. The patient has a medical history of {self.med_history}. What is the possible cause of these req_lst? Just list the possible causes"}
+                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} kg and height {self.height} cm is having {self.req_lst}. The patient has a medical history of {self.med_history}. What is the possible cause of these req_lst? Just list the possible causes"}
                 ]
             )
             self.update_json(
@@ -87,7 +88,7 @@ class GeneratedDetails:
             completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} is having {self.req_lst}. The patient has a medical history of {self.med_history}. What medical diagnosis test should be suggested? Just list the possible tests"}
+                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} kg and height {self.height} is having {self.req_lst}. The patient has a medical history of {self.med_history}. What medical diagnosis test should be suggested? Just list the possible tests"}
                 ]
             )
             self.update_json(

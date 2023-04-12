@@ -10,6 +10,7 @@ class InputDetails:
         self.gender = None
         self.age = None
         self.weight = None
+        self.height = None
         self.inputJson = None
 
     def update_json(self, key, data):
@@ -23,21 +24,25 @@ class InputDetails:
         st.title('Enter Details')
 
         st.subheader('Enter Patient History')
+
+        self.name = st.text_input('Name')
+        if self.name:
+            self.update_json('name', self.name)
         col1, col2 = st.columns(2)
         with col1:
-            self.name = st.text_input('Name')
-            if self.name:
-                self.update_json('name', self.name)
             self.gender = st.selectbox(
                 'Gender', ('Female', 'Male', 'Non-Binary', 'I do not wish to answer'))
             if self.gender:
                 self.update_json('gender', self.gender)
+            self.height = st.text_input('Height (cm)')
+            if self.height:
+                self.update_json('height', self.height)
 
         with col2:
             self.age = st.text_input('Age')
             if self.age:
                 self.update_json('age', self.age)
-            self.weight = st.text_input('Weight')
+            self.weight = st.text_input('Weight (kg)')
             if self.weight:
                 self.update_json('weight', self.weight)
 
