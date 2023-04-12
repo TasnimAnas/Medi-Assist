@@ -2,6 +2,7 @@ import json
 import os
 
 import openai
+import pyautogui
 import streamlit as st
 
 openai.api_key = "key"
@@ -78,7 +79,7 @@ class GeneratedDetails:
             completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} kg and height {self.height} cm is having {self.req_lst}. The patient has a medical history of {self.med_history}. What is the possible cause of these req_lst? Just list the possible causes"}
+                    {"role": "user", "content": f" A {self.age} years old {self.gender} with a weight {self.weight} kg and height {self.height} cm is having {self.req_lst}. The patient has a medical history of {self.med_history}. What is the possible cause of these symptoms? Just list the possible causes"}
                 ]
             )
             self.update_json(
@@ -105,3 +106,6 @@ class GeneratedDetails:
 
         st.subheader('Tests')
         st.write(self.tests)
+
+        if st.button('Print Report'):
+            pyautogui.hotkey('ctrl', 'p')
