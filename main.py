@@ -6,6 +6,9 @@ import streamlit as st
 
 from src.routes import Routes
 
+st.set_page_config(page_title="Medi-Assist",
+                   page_icon="https://raw.githubusercontent.com/shrutidebnath/medi-assist/main/medi-assist.ico")
+
 file_path = Path(__file__).parent / 'data/data.json'
 is_new_user = st.session_state.get('is_new_user', True)
 
