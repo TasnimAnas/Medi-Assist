@@ -1,25 +1,28 @@
 import json
 import os
+from pathlib import Path
 
 import openai
-import pyautogui
+# import pyautogui
 import streamlit as st
 
 openai.api_key = "key"
 
 # print(req_lst)
 
+path = Path(__file__).parent / '../data/data.json'
+
 
 class GeneratedDetails:
     def __init__(self) -> None:
-        f = open(r"C:\Users\KIIT\Desktop\medi-assist\data\data.json")
+        f = open(path)
         req_dict = json.load(f)
         self.req_lst = req_dict["symptoms"]
-        self.age = req_dict["age"]
-        self.gender = req_dict["gender"]
-        self.weight = req_dict["weight"]
-        self.height = req_dict["height"]
-        self.med_history = req_dict["med_history"]
+        self.age = req_dict["age"] if "age" in req_dict else 0
+        self.gender = req_dict["gender"] if "gender" in req_dict else "Female"
+        self.weight = req_dict["weight"] if "weight" in req_dict else 0
+        self.height = req_dict["height"] if "height" in req_dict else 0
+        self.med_history = req_dict["med_history"] if "med_history" in req_dict else "NA"
         causes = req_dict["causes"] if "causes" in req_dict else "No Data"
         tests = req_dict["tests"] if "tests" in req_dict else "No Data"
         # self.req_lst = self.req_lst
@@ -27,10 +30,10 @@ class GeneratedDetails:
         self.tests = tests
 
     def update_json(self, key, data):
-        with open(r'C:\Users\KIIT\Desktop\medi-assist\data\data.json', 'r') as f:
+        with open(path, 'r') as f:
             self.inputJson = json.load(f)
         self.inputJson[key] = data
-        with open(r'C:\Users\KIIT\Desktop\medi-assist\data\data.json', 'w') as f:
+        with open(path, 'w') as f:
             json.dump(self.inputJson, f)
 
     def gen(self):
@@ -66,7 +69,7 @@ class GeneratedDetails:
             for i in range(0, list_size):
                 # st.button("Delete Symptom", key=i)
                 if st.button("Delete Symptom", key=i):
-                    with open(r'C:\Users\KIIT\Desktop\medi-assist\data\data.json', 'r') as f:
+                    with open(path, 'r') as f:
                         self.req_lst = json.load(f)["symptoms"]
                     st.success("Symptom Deleted")
                     self.req_lst.remove(symptom)
@@ -107,5 +110,5 @@ class GeneratedDetails:
         st.subheader('Tests')
         st.write(self.tests)
 
-        if st.button('Print Report'):
-            pyautogui.hotkey('ctrl', 'p')
+        # if st.button('Print Report'):
+        #     pyautogui.hotkey('ctrl', 'p')
