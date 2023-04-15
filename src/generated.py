@@ -10,11 +10,11 @@ openai.api_key = "key"
 
 # print(req_lst)
 
-path = Path(__file__).parent / '../data/data.json'
-
 
 class GeneratedDetails:
     def __init__(self) -> None:
+        pt = '../data/data_' + st.session_state['unique_id']+'.json'
+        path = Path(__file__).parent / pt
         f = open(path)
         req_dict = json.load(f)
         self.req_lst = req_dict["symptoms"]
@@ -30,6 +30,8 @@ class GeneratedDetails:
         self.tests = tests
 
     def update_json(self, key, data):
+        pt = '../data/data_' + st.session_state['unique_id']+'.json'
+        path = Path(__file__).parent / pt
         with open(path, 'r') as f:
             self.inputJson = json.load(f)
         self.inputJson[key] = data
@@ -69,6 +71,9 @@ class GeneratedDetails:
             for i in range(0, list_size):
                 # st.button("Delete Symptom", key=i)
                 if st.button("Delete Symptom", key=i):
+                    pt = '../data/data_' + \
+                        st.session_state['unique_id']+'.json'
+                    path = Path(__file__).parent / pt
                     with open(path, 'r') as f:
                         self.req_lst = json.load(f)["symptoms"]
                     st.success("Symptom Deleted")

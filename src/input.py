@@ -14,10 +14,10 @@ class InputDetails:
         self.inputJson = None
 
     def update_json(self, key, data):
-        with open('data/data.json', 'r') as f:
+        with open('data/data_'+st.session_state['unique_id']+'.json', 'r') as f:
             self.inputJson = json.load(f)
         self.inputJson[key] = data
-        with open('data/data.json', 'w') as f:
+        with open('data/data_'+st.session_state['unique_id']+'.json', 'w') as f:
             json.dump(self.inputJson, f)
 
     def app(self):
@@ -58,7 +58,7 @@ class InputDetails:
                 'Enter Symptoms:', label_visibility='collapsed')
             if st.button('Add'):
                 if input != "":
-                    with open('data/data.json', 'r') as f:
+                    with open('data/data_'+st.session_state['unique_id']+'.json', 'r') as f:
                         self.symptoms = json.load(f)["symptoms"]
                     self.symptoms.append(input)
                     self.update_json("symptoms", self.symptoms)
@@ -67,13 +67,13 @@ class InputDetails:
 
         with col2:
             st.subheader("Symptoms List")
-            with open('data/data.json', 'r') as f:
+            with open('data/data_'+st.session_state['unique_id']+'.json', 'r') as f:
                 self.symptoms = json.load(f)["symptoms"]
             for s in self.symptoms:
                 st.text("> " + s)
 
             if len(self.symptoms) > 0:
                 if st.button('Clear'):
-                    with open('data/data.json', 'w') as f:
+                    with open('data/data_'+st.session_state['unique_id']+'.json', 'w') as f:
                         json.dump({"symptoms": []}, f)
                     st.experimental_rerun()
