@@ -6,7 +6,7 @@ import openai
 # import pyautogui
 import streamlit as st
 
-openai.api_key = "key"
+openai.api_key = "api"
 
 # print(req_lst)
 
