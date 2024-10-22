@@ -1,10 +1,4 @@
 # medi-assist
-# Deployed Application
-
-Link: https://medi-assist-gfg.nn.r.appspot.com/
-<br>
-<br>
-<br>
 
 <img width="918" alt="image" src="https://user-images.githubusercontent.com/88081773/230780289-d36e8921-2799-4444-8210-238e8c210008.png">
 
